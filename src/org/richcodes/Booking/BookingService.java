@@ -24,16 +24,18 @@ public class BookingService {
   }
 
   public CarBooking[] getAllBookings() {
+    if (bookingDao.getCarBooking().length == 0){
+      System.out.println("No Booking have been made yet");
+    }
     return bookingDao.getCarBooking();
   }
 
   public void getUserBookedCars(User user){
-   if(user.getName().isBlank()){
-     throw new IllegalArgumentException("user id dose n0t exist");
-   }
+//   if(user..isBlank()){
+//     throw new IllegalArgumentException("user id dose n0t exist");
+//   }
     System.out.println(Arrays.toString(bookingDao.getUserBookedCars(user)));
   }
-
 
 
 

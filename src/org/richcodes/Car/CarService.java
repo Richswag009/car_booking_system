@@ -33,7 +33,11 @@ public class CarService {
         for (var cars: carDao.availableCars()){
             System.out.println(cars);
         }
-//        System.out.println(Arrays.toString(carDao.availableCars()));
+    }
+    public void getElectricCars(){
+        for (var cars: carDao.getElectricCars()){
+            System.out.println(cars);
+        }
     }
 
 }

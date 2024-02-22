@@ -1,22 +1,24 @@
 package org.richcodes.User;
 
+import java.util.UUID;
+
 public class UserService {
 
-    private UserDao userDAO;
+    private UserArrayDataAccessService userDAO;
 
     public  UserService(){
-        this.userDAO= new UserDao();
+        this.userDAO= new UserArrayDataAccessService();
     }
 
-    public boolean addUser(User user){
-        if(user.getName().isBlank()){
-            throw  new IllegalArgumentException("Name Cannot be null or Empty");
-        }
-        userDAO.addUser(user);
-        System.out.println("successfully added User " + user.getName()
-                + " with id:" + user.getId());
-        return true;
-    }
+//    public boolean addUser(User user){
+//        if(user.getName().isBlank()){
+//            throw  new IllegalArgumentException("Name Cannot be null or Empty");
+//        }
+//        userDAO.addUser(user);
+//        System.out.println("successfully added User " + user.getName()
+//                + " with id:" + user.getId());
+//        return true;
+//    }
 
     public void getUsers(){
         for(var user: userDAO.getAllUsers()){
@@ -29,6 +31,11 @@ public class UserService {
             throw new IllegalArgumentException("name cannott be blank");
         }
         return userDAO.getUserByName(name);
+    }   public User findUserById(UUID id){
+        if (id ==null){
+            throw new IllegalArgumentException("name cannott be blank");
+        }
+        return userDAO.getUserById(id);
     }
 
 

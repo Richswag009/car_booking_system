@@ -2,18 +2,21 @@ package org.richcodes.Car;
 
 import org.richcodes.Brand;
 
+import java.util.Arrays;
+
 public class CarDao {
 
     private static final Car[] cars;
 
     static {
         cars = new Car[]{
-                new Car("promise", Brand.FORD,"34HYD32"),
-                new Car("paul",Brand.TOYOTA,"B4HGK30"),
-                new Car("riches",Brand.BMW,"P4HYD32"),
-                new Car("poto",Brand.BMW,"M7YD32"),
-                new Car("gbenga",Brand.FORD,"O0RHYD32"),
-                new Car("elisha",Brand.TOYOTA,"L9HYD32"),
+                new Car("promise", Brand.FORD,"34HYD32",false),
+                new Car("paul",Brand.TESLA,"B4HGK30",true),
+                new Car("riches",Brand.BMW,"P4HYD32",false),
+                new Car("poto",Brand.TESLA,"M7YD32",true),
+                new Car("gbenga",Brand.FORD,"O0RHYD32",false),
+                new Car("elisha",Brand.TOYOTA,"L9HYD32",false),
+                new Car("elisha",Brand.TESLA,"L9HYD32",true),
         };
     }
 
@@ -31,6 +34,22 @@ public class CarDao {
         return null;
     }
 
+    public Car[] getElectricCars(){
+        int count= 0;
+        Car[] electricCars = new Car[cars.length];
+        for (var car: getCars()){
+            if (car.isElectric() && !car.getCarIsBooked()){
+                electricCars[count++]=car;
+            }
+        }
+        if (electricCars.length == 0) {
+            System.out.println("No Electric cars  available:");
+        }
+        electricCars = Arrays.copyOf(electricCars,count);
+        return electricCars;
+    }
+
+
     public Car[] availableCars(){
         int count= 0;
         Car[] availableCars = new Car[cars.length];
@@ -42,6 +61,7 @@ public class CarDao {
         if (count == 0) {
             System.out.println("No cars is available for booking: ");
         }
+        availableCars= Arrays.copyOf(availableCars,count);
         return availableCars;
     }
 

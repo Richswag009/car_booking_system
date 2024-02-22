@@ -7,11 +7,12 @@ public class User {
     private UUID id;
 
 
-    public User(String name) {
+    public User(UUID uuid, String name) {
         this.name = name;
-        id = UUID.randomUUID();
+        this.id = uuid;
 
     }
+    public User(){}
 
     public String getName() {
         return name;

@@ -8,14 +8,16 @@ public class Car {
     private Brand brand;
     private String regNO;
     private boolean isBooked;
+    private boolean isElectric;
 
     public Car(){}
 
-    public Car(String name, Brand brand, String regNO) {
+    public Car(String name, Brand brand, String regNO, boolean isElectric) {
         this.name = name;
         this.brand = brand;
         this.regNO = regNO;
         this.isBooked= false;
+        this.isElectric= isElectric;
     }
     public  Car(String regNO){
         this.regNO = regNO;
@@ -42,6 +44,10 @@ public class Car {
     }
     public void markAsBooked() {
         this.isBooked = true;
+    }
+
+    public boolean isElectric() {
+        return isElectric;
     }
 
     @Override

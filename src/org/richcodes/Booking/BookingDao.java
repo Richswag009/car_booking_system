@@ -16,7 +16,6 @@ public class BookingDao {
 
     }
 
-
     public void addBooking(User user, Car car){
         CarBooking carBook= new CarBooking(user, car);
         carBooking[count]=carBook;
@@ -24,7 +23,6 @@ public class BookingDao {
         count++;
 
     }
-
     public CarBooking[] getCarBooking(){
         return carBooking;
     }
@@ -34,13 +32,11 @@ public class BookingDao {
     public Car[] getUserBookedCars(User user){
         int capacity =0;
         Car[] carsBookedByUser =new Car[10];
-        for(var userCars: getCarBooking()){
-            if(userCars != null && userCars.getUser() != null && userCars.getUser().equals(user)){
+        for(var userCars: getCarBooking())
+            if ((userCars != null && userCars.getUser() != null) && userCars.getUser().equals(user))
                 carsBookedByUser[capacity++] = userCars.getCar();
-            }
-        }
         if (capacity == 0) {
-            System.out.println("No cars found for user: " + user.getName());
+            System.out.println("No booking found for user: " + user.getId());
         }
         carsBookedByUser = Arrays.copyOf(carsBookedByUser, capacity);
         return carsBookedByUser;
