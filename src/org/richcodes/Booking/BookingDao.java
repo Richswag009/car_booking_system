@@ -30,13 +30,17 @@ public class BookingDao {
 
 
     public Car[] getUserBookedCars(User user){
+//        System.out.println(Arrays.toString(getCarBooking()));
+
         int capacity =0;
         Car[] carsBookedByUser =new Car[10];
-        for(var userCars: getCarBooking())
-            if ((userCars != null && userCars.getUser() != null) && userCars.getUser().equals(user))
+        for(var userCars : getCarBooking()) {
+            if (userCars != null && userCars.getUser() != null && userCars.getUser().equals(user)){
                 carsBookedByUser[capacity++] = userCars.getCar();
+            }
+        }
         if (capacity == 0) {
-            System.out.println("No booking found for user: " + user.getId());
+            System.out.println("No booking found for user: " + user.getName() + " " +user.getId());
         }
         carsBookedByUser = Arrays.copyOf(carsBookedByUser, capacity);
         return carsBookedByUser;

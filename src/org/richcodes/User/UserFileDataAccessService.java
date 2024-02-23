@@ -6,45 +6,29 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.UUID;
 
-public class UserArrayDataAccessService  implements  UserDao{
-    private static final User[] users;
+public class UserFileDataAccessService  implements UserDao{
+    @Override
+    public User[] getUsers() {
+        int counts = countLine();
+        File file = new File("src/org/richcodes/users.csv");
+        User[] users1 = new User[counts];
+        int index = 0;
+        try{
+            Scanner scanner = new Scanner(file);
+            while(scanner.hasNext()){
+                String[] parts = scanner.nextLine().split(", ");
+                UUID id = UUID.fromString(parts[0]);
+                String name = parts[1];
+                users1[index] = new User(id, name);
+                index++;
+            }
 
-    static {
-
-        users = new User[]{
-                new User(UUID.fromString("8ca51d2b-aaaf-4bf2-834a-e02964e10fc3"), "James"),
-                new User(UUID.fromString("b10d126a-3608-4980-9f9c-aa179f5cebc3"), "Jamila")
-        };
-    }
-
-
-
-
-    public  User[] getAllUsers(){
-        return users;
-    }
-@Override
-public User[] getUsers() {
-    int counts = countLine();
-    File file = new File("src/org/richcodes/users.csv");
-    User[] users1 = new User[counts];
-    int index = 0;
-    try{
-        Scanner scanner = new Scanner(file);
-        while(scanner.hasNext()){
-            String[] parts = scanner.nextLine().split(", ");
-            UUID id = UUID.fromString(parts[0]);
-            String name = parts[1];
-            users1[index] = new User(id, name);
-            index++;
+        }catch (IOException e){
+            throw  new RuntimeException(e);
         }
 
-    }catch (IOException e){
-        throw  new RuntimeException(e);
+        return users1;
     }
-
-    return users1;
-}
 
     public int countLine(){
         File file = new File("src/org/richcodes/users.csv");
@@ -86,6 +70,4 @@ public User[] getUsers() {
     public String toString() {
         return super.toString();
     }
-
-
 }

@@ -4,11 +4,8 @@ import java.util.UUID;
 
 public class UserService {
 
-    private UserArrayDataAccessService userDAO;
-
-    public  UserService(){
-        this.userDAO= new UserArrayDataAccessService();
-    }
+    private final UserFileDataAccessService userDAO = new UserFileDataAccessService();
+    private final UserArrayDataAccessService userDAO1 = new UserArrayDataAccessService();
 
 //    public boolean addUser(User user){
 //        if(user.getName().isBlank()){
@@ -21,28 +18,23 @@ public class UserService {
 //    }
 
     public void getUsers(){
-        for(var user: userDAO.getAllUsers()){
+        for(var user: userDAO.getUsers()){
             System.out.println(user);
         };
     }
 
     public User findUserByName(String name){
         if (name.isBlank()){
-            throw new IllegalArgumentException("name cannott be blank");
+            throw new IllegalArgumentException("name cannot be blank");
         }
         return userDAO.getUserByName(name);
-    }   public User findUserById(UUID id){
+    }
+
+    public User findUserById(UUID id){
         if (id ==null){
-            throw new IllegalArgumentException("name cannott be blank");
+            throw new IllegalArgumentException("name cannot be blank");
         }
         return userDAO.getUserById(id);
     }
 
-
-    @Override
-    public String toString() {
-        return "UserService{" +
-                "userDAO=" + userDAO +
-                '}';
-    }
 }

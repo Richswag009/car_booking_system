@@ -31,9 +31,6 @@ public class BookingService {
   }
 
   public void getUserBookedCars(User user){
-//   if(user..isBlank()){
-//     throw new IllegalArgumentException("user id dose n0t exist");
-//   }
     System.out.println(Arrays.toString(bookingDao.getUserBookedCars(user)));
   }
 
