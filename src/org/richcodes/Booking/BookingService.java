@@ -14,6 +14,10 @@ public class BookingService {
       bookingDao= new BookingDao(capacity);
   }
 
+  public BookingService(BookingDao bookingDao){
+    this.bookingDao = bookingDao;
+  }
+
   public boolean addBooking(User user, Car car){
     if (user.getId() == null || car.getCarIsBooked()){
       throw new IllegalArgumentException("cannot booked call as either dosent exist or car is booked");

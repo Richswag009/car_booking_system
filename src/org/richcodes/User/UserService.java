@@ -1,11 +1,17 @@
 package org.richcodes.User;
 
+import java.beans.JavaBean;
 import java.util.UUID;
-
+@JavaBean
 public class UserService {
 
-    private final UserFileDataAccessService userDAO = new UserFileDataAccessService();
+    private  UserFileDataAccessService userDAO = new UserFileDataAccessService();
     private final UserArrayDataAccessService userDAO1 = new UserArrayDataAccessService();
+
+
+    public  UserService(UserFileDataAccessService userDAO){
+        this.userDAO =userDAO;
+    }
 
 //    public boolean addUser(User user){
 //        if(user.getName().isBlank()){
@@ -16,6 +22,8 @@ public class UserService {
 //                + " with id:" + user.getId());
 //        return true;
 //    }
+
+
 
     public void getUsers(){
         for(var user: userDAO.getUsers()){

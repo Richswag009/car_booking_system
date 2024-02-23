@@ -1,32 +1,35 @@
 package org.richcodes;
 
+import org.richcodes.Booking.BookingDao;
 import org.richcodes.Booking.BookingService;
 import org.richcodes.Car.Car;
+import org.richcodes.Car.CarDao;
 import org.richcodes.Car.CarService;
 import org.richcodes.User.User;
+import org.richcodes.User.UserFileDataAccessService;
 import org.richcodes.User.UserService;
 
 import java.util.Scanner;
 import java.util.UUID;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
         menu();
-//        UserService userService = new UserService();
-//        String uuidString = "0236e9db-8c46-45a1-8fef-718d12e271f3";
-//        UUID uuid = UUID.fromString(uuidString);
-//        userService.findUserById(uuid);
-
     }
 
 
    static public void menu(){
-        Scanner scanner = new Scanner(System.in);
-       BookingService bookingService= new BookingService(10);
-       CarService carService = new CarService();
-       UserService userService = new UserService();
+       //       added  car dependency
+       CarDao carDao = new CarDao();
+       UserFileDataAccessService userDao = new UserFileDataAccessService();
+       BookingDao bookingDao = new BookingDao(10);
+
+//       injection
+       CarService carService = new CarService(carDao);
+       UserService userService = new UserService(userDao);
+       BookingService bookingService= new BookingService(bookingDao);
+
+       Scanner scanner = new Scanner(System.in);
         while(true){
             System.out.println(" 1⃣ - Book Car ");
             System.out.println(" 2⃣ - View All User Booked Cars");
@@ -42,19 +45,18 @@ public class Main {
                 System.out.println("\n available cars");
                 carService.getAvailableCars();
                 System.out.print("→ - Enter Car reg no:");
-
                 String carReg = scanner.nextLine();
                 Car car= carService.findUserByName(carReg);
                 System.out.println();
                 userService.getUsers();
-                System.out.print("→ - Please Enter your user ID: ");
+                System.out.print("→ - Please Enter your user ID:");
                 String userId = scanner.nextLine();
                 UUID uuid = UUID.fromString(userId);
                 User user = userService.findUserById(uuid);
                 bookingService.addBooking(user,car);
             } else if (choice == 2) {
                 userService.getUsers();
-                System.out.print("→ - Please Enter Your ID: ");
+                System.out.print("→ - Please Enter Your ID:");
                 String uuidString = scanner.nextLine();
                 UUID uuid = UUID.fromString(uuidString);
                 User user = userService.findUserById(uuid);
