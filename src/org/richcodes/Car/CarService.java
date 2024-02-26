@@ -30,14 +30,17 @@ public class CarService {
     }
 
     public void getAvailableCars(){
-        for (var cars: carDao.availableCars()){
-            System.out.println(cars);
-        }
+//        for (var cars: carDao.availableCars()){
+//            System.out.println(cars);
+//        }
+//        using method reference
+        carDao.availableCars().forEach(System.out::println);
     }
     public void getElectricCars(){
-        for (var cars: carDao.getElectricCars()){
-            System.out.println(cars);
-        }
+//        for (var cars: carDao.getElectricCars()){
+//            System.out.println(cars);
+//        }
+        carDao.getElectricCars().forEach(System.out::println);
     }
 
 }
