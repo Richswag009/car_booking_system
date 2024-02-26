@@ -1,5 +1,7 @@
 package org.richcodes.User;
 
+import java.util.List;
+
 public interface UserDao {
-    User[] getUsers();
+    List<User> getUsers();
 }

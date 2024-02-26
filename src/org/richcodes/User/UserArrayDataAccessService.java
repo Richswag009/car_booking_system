@@ -3,9 +3,12 @@ package org.richcodes.User;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
 
+//public class UserArrayDataAccessService {
 public class UserArrayDataAccessService  implements  UserDao{
     private static final User[] users;
 
@@ -23,27 +26,29 @@ public class UserArrayDataAccessService  implements  UserDao{
     public  User[] getAllUsers(){
         return users;
     }
-@Override
-public User[] getUsers() {
-    int counts = countLine();
+
+public List<User> getUsers() {
+//    int counts = countLine();
     File file = new File("src/org/richcodes/users.csv");
-    User[] users1 = new User[counts];
-    int index = 0;
+    List<User> user = new ArrayList<>();
+//    User[] users1 = new User[counts];
+//    int index = 0;
     try{
         Scanner scanner = new Scanner(file);
         while(scanner.hasNext()){
             String[] parts = scanner.nextLine().split(", ");
             UUID id = UUID.fromString(parts[0]);
             String name = parts[1];
-            users1[index] = new User(id, name);
-            index++;
+//            users1[index] = new User(id, name);
+//            index++;
+            user.add(new User(id,name));
         }
 
     }catch (IOException e){
         throw  new RuntimeException(e);
     }
 
-    return users1;
+    return user;
 }
 
     public int countLine(){

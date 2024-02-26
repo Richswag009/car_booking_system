@@ -39,6 +39,7 @@ public class UserService {
     }
 
     public User findUserById(UUID id){
+
         if (id ==null){
             throw new IllegalArgumentException("name cannot be blank");
         }

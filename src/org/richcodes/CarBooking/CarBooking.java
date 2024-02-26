@@ -14,7 +14,6 @@ public class CarBooking {
     private UUID bookingRef;
     private Date dateCreated;
 
-    public  CarBooking(){}
 
     public CarBooking(User user, Car car){
         this.user=user;
@@ -22,11 +21,8 @@ public class CarBooking {
         this.bookingRef= UUID.randomUUID();
         this.dateCreated= new Date();
 
-
     }
 
-    public CarBooking(int capacity) {
-    }
 
     public User getUser() {
         return user;

@@ -14,17 +14,19 @@ import java.util.UUID;
 
 public class Main {
     public static void main(String[] args) {
+        System.out.println();
+        System.out.println("Welcome to zilly car Booking System!!!");
         menu();
     }
 
 
    static public void menu(){
-       //       added  car dependency
+        //added dependency
        CarDao carDao = new CarDao();
        UserFileDataAccessService userDao = new UserFileDataAccessService();
        BookingDao bookingDao = new BookingDao(10);
 
-//       injection
+        // injection
        CarService carService = new CarService(carDao);
        UserService userService = new UserService(userDao);
        BookingService bookingService= new BookingService(bookingDao);
@@ -75,6 +77,8 @@ public class Main {
                 userService.getUsers();
             }
             else if(choice ==7){
+                System.out.println("shutting down systems");
+
                 break;
             }else{
                 System.out.println("✖ -- invalid number selected");

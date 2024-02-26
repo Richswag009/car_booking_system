@@ -4,7 +4,6 @@ import org.richcodes.Brand;
 
 public class Car {
     private String name;
-//    private String model;
     private Brand brand;
     private String regNO;
     private boolean isBooked;
@@ -53,10 +52,11 @@ public class Car {
     @Override
     public String toString() {
         return "Car{" +
-                "driverName='" + name + '\'' +
-                ", model='" + brand + '\'' +
+                "name='" + name + '\'' +
+                ", brand=" + brand +
                 ", regNO='" + regNO + '\'' +
-                ", carIsBooked='" + isBooked + '\'' +
+                ", isBooked=" + isBooked +
+                ", isElectric=" + isElectric +
                 '}';
     }
 }

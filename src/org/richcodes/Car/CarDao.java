@@ -2,7 +2,8 @@ package org.richcodes.Car;
 
 import org.richcodes.Brand;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CarDao {
 
@@ -34,36 +35,63 @@ public class CarDao {
         return null;
     }
 
-    public Car[] getElectricCars(){
-        int count= 0;
-        Car[] electricCars = new Car[cars.length];
-        for (var car: getCars()){
-            if (car.isElectric() && !car.getCarIsBooked()){
-                electricCars[count++]=car;
+    public List<Car> getElectricCars() {
+
+        List<Car> electricCars = new ArrayList<>();
+        for (var car : getCars()) {
+            if (car.isElectric() && !car.getCarIsBooked()) {
+                electricCars.add(car);
             }
         }
-        if (electricCars.length == 0) {
+        if (electricCars.isEmpty()) {
             System.out.println("No Electric cars  available:");
         }
-        electricCars = Arrays.copyOf(electricCars,count);
         return electricCars;
     }
+//    } public Car[] getElectricCars(){
+//        int count= 0;
+//        Car[] electricCars = new Car[cars.length];
+//        for (var car: getCars()){
+//            if (car.isElectric() && !car.getCarIsBooked()){
+//                electricCars[count++]=car;
+//            }
+//        }
+//        if (electricCars.length == 0) {
+//            System.out.println("No Electric cars  available:");
+//        }
+//        electricCars = Arrays.copyOf(electricCars,count);
+//        return electricCars;
+//    }
 
 
-    public Car[] availableCars(){
-        int count= 0;
-        Car[] availableCars = new Car[cars.length];
-        for (var car: getCars()){
-            if (!car.getCarIsBooked()){
-                availableCars[count++]=car;
+    public List<Car> availableCars() {
+        List<Car> availableCars = new ArrayList<>();
+        for (var car : getCars()) {
+            if (!car.getCarIsBooked()) {
+                availableCars.add(car);
             }
         }
-        if (count == 0) {
+        if (availableCars.isEmpty()) {
             System.out.println("No cars is available for booking: ");
         }
-        availableCars= Arrays.copyOf(availableCars,count);
         return availableCars;
     }
+
+
+//    public Car[] availableCarsArray(){
+//        int count= 0;
+//        Car[] availableCars = new Car[cars.length];
+//        for (var car: getCars()){
+//            if (!car.getCarIsBooked()){
+//                availableCars[count++]=car;
+//            }
+//        }
+//        if (count == 0) {
+//            System.out.println("No cars is available for booking: ");
+//        }
+//        availableCars= Arrays.copyOf(availableCars,count);
+//        return availableCars;
+//    }
 
 
 }
