@@ -65,10 +65,7 @@ public class Main {
                 bookingService.getUserBookedCars(user);
             }
             else if(choice ==3){
-                var bookings = bookingService.getAllBookings();
-                for(var booking: bookings){
-                    System.out.println(booking);
-                }
+                bookingService.getAllBookings();
             }else if(choice ==4){
                 carService.getAvailableCars();
             }else if(choice ==5){
@@ -78,7 +75,6 @@ public class Main {
             }
             else if(choice ==7){
                 System.out.println("shutting down systems");
-
                 break;
             }else{
                 System.out.println("✖ -- invalid number selected");

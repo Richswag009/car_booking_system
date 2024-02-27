@@ -26,9 +26,11 @@ public class UserService {
 
 
     public void getUsers(){
-        for(var user: userDAO.getUsers()){
-            System.out.println(user);
-        };
+
+//        for(var user: userDAO.getUsers()){
+//            System.out.println(user);
+//        };
+        userDAO.getUsers().forEach(System.out::println);
     }
 
     public User findUserByName(String name){
@@ -39,7 +41,6 @@ public class UserService {
     }
 
     public User findUserById(UUID id){
-
         if (id ==null){
             throw new IllegalArgumentException("name cannot be blank");
         }

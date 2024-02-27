@@ -1,10 +1,7 @@
 package org.richcodes.Booking;
 
 import org.richcodes.Car.Car;
-import org.richcodes.CarBooking.CarBooking;
 import org.richcodes.User.User;
-
-import java.util.List;
 
 public class BookingService {
 
@@ -24,11 +21,11 @@ public class BookingService {
     System.out.println("successfully booked car " + car.getRegNO());
   }
 
-  public List<CarBooking> getAllBookings() {
+  public void getAllBookings() {
     if (bookingDao.getCarBooking().isEmpty()){
       System.out.println("No Booking have been made yet");
     }
-    return bookingDao.getCarBooking();
+    bookingDao.getCarBooking().forEach(System.out::println);
   }
 
   public void getUserBookedCars(User user){

@@ -24,7 +24,8 @@ public class CarService {
 
     public Car findUserByName(String regNo){
         if (regNo.isBlank()){
-            throw new IllegalArgumentException("name cannot be blank");
+//            throw new IllegalArgumentException("name cannot be blank");
+            System.out.println("please enter the regNo of the car ");
         }
         return carDao.getCarByRegNo(regNo);
     }

@@ -10,11 +10,8 @@ import java.util.List;
 public class BookingDao {
 
     private final List<CarBooking> carBooking;
-    private int count;
     public  BookingDao(int capacity){
         carBooking = new ArrayList<>();
-//        count=0;
-
     }
 
     public void addBooking(User user, Car car){
@@ -29,7 +26,6 @@ public class BookingDao {
 
 
     public List<Car> getUserBookedCars(User user){
-
         List<Car> carsBookedByUser =new ArrayList<>();
         for(var userCars : getCarBooking()) {
             if (userCars != null && userCars.getUser() != null && userCars.getUser().equals(user)){
@@ -37,7 +33,7 @@ public class BookingDao {
             }
         }
         if (carsBookedByUser.isEmpty()) {
-            System.out.println("No booking found for user: " + user.getName() + " " +user.getId());
+            System.out.println("No booking found for user: " + user.getName() + " and ID: " +user.getId());
         }
 
         return carsBookedByUser;
