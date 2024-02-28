@@ -18,8 +18,6 @@ public class UserArrayDataAccessService  implements  UserDao{
     }
 
 
-
-
     public  User[] getAllUsers(){
         return users;
     }

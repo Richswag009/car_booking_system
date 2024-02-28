@@ -3,6 +3,7 @@ package org.richcodes.Car;
 import org.richcodes.Brand;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class CarDao {
@@ -35,8 +36,9 @@ public class CarDao {
         return null;
     }
 
-    public List<Car> getElectricCars() {
 
+// without streams
+    public List<Car> getElectricCars() {
         List<Car> electricCars = new ArrayList<>();
         for (var car : getCars()) {
             if (car.isElectric() && !car.getCarIsBooked()) {
@@ -48,20 +50,11 @@ public class CarDao {
         }
         return electricCars;
     }
-//    } public Car[] getElectricCars(){
-//        int count= 0;
-//        Car[] electricCars = new Car[cars.length];
-//        for (var car: getCars()){
-//            if (car.isElectric() && !car.getCarIsBooked()){
-//                electricCars[count++]=car;
-//            }
-//        }
-//        if (electricCars.length == 0) {
-//            System.out.println("No Electric cars  available:");
-//        }
-//        electricCars = Arrays.copyOf(electricCars,count);
-//        return electricCars;
-//    }
+
+    //Using streams
+    public List<Car> getAllElectricCars(){
+        return Arrays.stream(getCars()).filter(Car::isElectric).toList();
+    }
 
 
     public List<Car> availableCars() {
@@ -78,20 +71,11 @@ public class CarDao {
     }
 
 
-//    public Car[] availableCarsArray(){
-//        int count= 0;
-//        Car[] availableCars = new Car[cars.length];
-//        for (var car: getCars()){
-//            if (!car.getCarIsBooked()){
-//                availableCars[count++]=car;
-//            }
-//        }
-//        if (count == 0) {
-//            System.out.println("No cars is available for booking: ");
-//        }
-//        availableCars= Arrays.copyOf(availableCars,count);
-//        return availableCars;
-//    }
+    public List<Car> availableCarsUsingStreams(){
+        return Arrays.stream(getCars()).filter(s-> !s.getCarIsBooked()).toList();
+
+
+    }
 
 
 }

@@ -17,9 +17,14 @@ public class BookingService {
   public void addBooking(String userName, String carName){
     var user = userService.findUserByName(userName);
     var car = carService.findUserByName(carName);
-    System.out.println(car + "+" + user);
+    if (user == null || car.getCarIsBooked()){
+        System.out.println("Cannot be booked can as car is already booked");
+        return ;
+
+    }
     bookingDao.addBooking(user,car);
     System.out.println("successfully booked car " + car.getRegNO());
+
   }
 
 
