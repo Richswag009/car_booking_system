@@ -2,12 +2,9 @@ package org.richcodes.Car;
 
 
 public class CarService {
-    private final CarDao carDao;
+    private final CarDao carDao = new CarDao();
 
-    public CarService(CarDao carDao){
-        this.carDao = carDao;
 
-    }
     public boolean addCar(Car car){
         if(car.getRegNO().isEmpty()){
             throw new IllegalArgumentException(

@@ -3,10 +3,7 @@ package org.richcodes.User;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.UUID;
+import java.util.*;
 
 public class UserFileDataAccessService  implements UserDao{
     @Override
@@ -63,6 +60,17 @@ public class UserFileDataAccessService  implements UserDao{
         }
         System.out.println("user not found");
         return null;
+    }
+
+    @Override
+    public Optional<User> getUserByUsername(String name) {
+      for(var user: this.getUsers()){
+          if(user.getName().equalsIgnoreCase(name)){
+              return Optional.of(user);
+          }
+          return Optional.empty();
+      }
+        return Optional.empty();
     }
 
     @Override

@@ -2,35 +2,38 @@ package org.richcodes;
 
 import org.richcodes.Booking.BookingDao;
 import org.richcodes.Booking.BookingService;
-import org.richcodes.Car.Car;
-import org.richcodes.Car.CarDao;
 import org.richcodes.Car.CarService;
-import org.richcodes.User.User;
-import org.richcodes.User.UserFileDataAccessService;
 import org.richcodes.User.UserService;
 
 import java.util.Scanner;
-import java.util.UUID;
 
 public class Main {
-    public static void main(String[] args) {
-        System.out.println();
-        System.out.println("Welcome to zilly car Booking System!!!");
-        menu();
+    private final BookingDao bookingDao;
+    private final UserService userService;
+    private final CarService carService;
+    private final  BookingService bookingService;
+
+
+    public Main(BookingDao bookingDao, UserService userService, CarService carService) {
+        this.bookingDao = bookingDao;
+        this.userService = userService;
+        this.carService = carService;
+        this.bookingService= new BookingService(bookingDao, userService, carService);
+//
     }
 
+    public static void main(String[] args) {
+         BookingDao bookingDao = new BookingDao();
+         UserService userService = new UserService();
+         CarService carService = new CarService();
+         System.out.println();
+         System.out.println("Welcome to Zilly car Booking System!!!");
+         Main mainInstance = new Main(bookingDao, userService, carService);
+         mainInstance.menu();
+    }
 
-   static public void menu(){
-        //added dependency
-       CarDao carDao = new CarDao();
-       UserFileDataAccessService userDao = new UserFileDataAccessService();
-       BookingDao bookingDao = new BookingDao(10);
-
-        // injection
-       CarService carService = new CarService(carDao);
-       UserService userService = new UserService(userDao);
-       BookingService bookingService= new BookingService(bookingDao);
-
+   private  void menu()
+   {
        Scanner scanner = new Scanner(System.in);
         while(true){
             System.out.println(" 1⃣ - Book Car ");
@@ -43,89 +46,67 @@ public class Main {
 
             int choice = scanner.nextInt();
             scanner.nextLine();
-            if(choice == 1){
-                System.out.println("\n available cars");
-                carService.getAvailableCars();
-                System.out.print("→ - Enter Car reg no:");
-                String carReg = scanner.nextLine();
-                Car car= carService.findUserByName(carReg);
-                System.out.println();
-                userService.getUsers();
-                System.out.print("→ - Please Enter your user ID:");
-                String userId = scanner.nextLine();
-                UUID uuid = UUID.fromString(userId);
-                User user = userService.findUserById(uuid);
-                bookingService.addBooking(user,car);
-            } else if (choice == 2) {
-                userService.getUsers();
-                System.out.print("→ - Please Enter Your ID:");
-                String uuidString = scanner.nextLine();
-                UUID uuid = UUID.fromString(uuidString);
-                User user = userService.findUserById(uuid);
-                bookingService.getUserBookedCars(user);
-            }
-            else if(choice ==3){
-                bookingService.getAllBookings();
-            }else if(choice ==4){
-                carService.getAvailableCars();
-            }else if(choice ==5){
-                carService.getElectricCars();
-            }else if(choice ==6){
-                userService.getUsers();
-            }
-            else if(choice ==7){
-                System.out.println("shutting down systems");
-                break;
-            }else{
-                System.out.println("✖ -- invalid number selected");
+
+            switch(choice){
+                case 1:
+                    bookACar();
+                    break;
+                case 2:
+                    viewAUserBooking();
+                    break;
+                case 3:
+                    viewAllBookings();
+                    break;
+                case 4:
+                    viewAllAvailableCars();
+                    break;
+                case 5:
+                    viewElectricCars();
+                    break;
+                case 6:
+                    getAllUsers();
+                    break;
+                case 7:
+                    System.out.println("Existing the Program");
+                    return;
+                default:
+                    System.out.println("Invalid input");;
             }
         }
     }
 
+    private  void bookACar() {
+        Scanner userNameScanner = new Scanner(System.in);
+        Scanner carNameScanner = new Scanner(System.in);
+        userService.getUsers();
+        System.out.print("Enter UserName:");
+        String userName = userNameScanner.nextLine();
+        carService.getAvailableCars();
+        System.out.println("Enter car RegNo:");
+        String carReg = carNameScanner.nextLine();
+        bookingService.addBooking(userName,carReg);
+    }
+    private  void viewAUserBooking() {
+        Scanner userScanner = new Scanner(System.in);
+        userService.getUsers();
+        System.out.println("Enter A Username ");
+        String user = userScanner.nextLine();
+       bookingService.getUserBookedCars(user);
+    }
+
+    private  void viewAllBookings() {
+        bookingService.getAllBookings();
+    }
+    private  void viewAllAvailableCars() {
+        carService.getAvailableCars();
+    }
+    private  void viewElectricCars() {
+       carService.getElectricCars();
+    }
+    private void getAllUsers(){
+        userService.getUsers();
+    }
+
+
 }
 
-
-//
-//        int[] numbers = {1,1,1,2,2,8,9};
-//        int[] number = {1,2,3,4};
-//        System.out.println(Arrays.toString(middleNumber(number)));
-//        System.out.println(removeDuplicates(numbers));
-//        System.out.println(bestTimeToBuy(numbers));
-
-//    static int removeDuplicates(int[] nums) {
-//        if (nums.length == 0) {
-//            return 0;
-//        }
-//
-//        int i = 0;
-//
-//        for (int j = 1; j < nums.length; j++) {
-//            if (nums[j] != nums[i]) {
-//                i++;
-//                nums[i] = nums[j];
-//            }
-//        }
-//        System.out.println(Arrays.toString(nums));
-//        return i + 1;
-//
-//    }
-//
-//    static  int bestTimeToBuy(int[] prices){
-//        int maxProfit = 0;
-//        int leftPointer =0;
-//
-//        for (int rightpointer =0; rightpointer< prices.length; rightpointer++){
-//            if(prices[leftPointer] < prices[rightpointer]){
-//                int profit = prices[rightpointer] - prices[leftPointer];
-//                 maxProfit = Math.max(profit,maxProfit);
-//            }
-//            else {
-//                leftPointer = rightpointer;
-//            }
-//        }
-//        return maxProfit;
-//
-//    }
-
-
-//    static  int[] singleNumber()

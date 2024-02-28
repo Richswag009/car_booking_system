@@ -3,10 +3,7 @@ package org.richcodes.User;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.UUID;
+import java.util.*;
 
 //public class UserArrayDataAccessService {
 public class UserArrayDataAccessService  implements  UserDao{
@@ -28,19 +25,16 @@ public class UserArrayDataAccessService  implements  UserDao{
     }
 
 public List<User> getUsers() {
-//    int counts = countLine();
+
     File file = new File("src/org/richcodes/users.csv");
     List<User> user = new ArrayList<>();
-//    User[] users1 = new User[counts];
-//    int index = 0;
+
     try{
         Scanner scanner = new Scanner(file);
         while(scanner.hasNext()){
             String[] parts = scanner.nextLine().split(", ");
             UUID id = UUID.fromString(parts[0]);
             String name = parts[1];
-//            users1[index] = new User(id, name);
-//            index++;
             user.add(new User(id,name));
         }
 
@@ -76,15 +70,15 @@ public List<User> getUsers() {
         return null;
     }
 
-    public User getUserByName(String name){
-        for (var user : getUsers()){
+    @Override
+    public Optional<User> getUserByUsername(String name) {
+        for(var user: this.getUsers()){
             if(user.getName().equalsIgnoreCase(name)){
-                System.out.println("found user: " + name);
-                return user;
+                return Optional.of(user);
             }
+            return Optional.empty();
         }
-        System.out.println("user not found");
-        return null;
+        return Optional.empty();
     }
 
     @Override
