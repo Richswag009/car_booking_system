@@ -32,6 +32,19 @@ public class BookingDao {
         }
         return carsBookedByUser;
     }
+//    using streams
+    public List<CarBooking> getAUserBookedCars(User user) {
+        List<CarBooking> cars = getCarBooking();
+        cars.stream().filter(carBooking1 ->
+                        carBooking1.getUser() == null && carBooking1.getUser().equals(user))
+                .map(CarBooking::getCar).toList().forEach(System.out::println);
+        return cars;
+    }
+
+
+
+
+
 
 
 }

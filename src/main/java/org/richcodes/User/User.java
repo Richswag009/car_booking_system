@@ -6,12 +6,18 @@ import java.util.UUID;
 public class User {
     private String name;
     private UUID id;
+    private String ids;
 
 
     public User(UUID uuid, String name) {
         this.name = name;
         this.id = uuid;
 
+    }
+
+    public User(String name, String ids) {
+        this.name = name;
+        this.ids = ids;
     }
 
     public String getName() {

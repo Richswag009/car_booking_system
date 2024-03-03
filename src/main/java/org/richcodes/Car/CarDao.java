@@ -71,6 +71,7 @@ public class CarDao {
     }
 
 
+//    using stream
     public List<Car> availableCarsUsingStreams(){
         return Arrays.stream(getCars()).filter(s-> !s.getCarIsBooked()).toList();
 

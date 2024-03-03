@@ -8,7 +8,9 @@ import java.util.*;
 public class UserFileDataAccessService  implements UserDao{
     @Override
     public List<User> getUsers() {
-        File file = new File("src/org/richcodes/users.csv");
+//        File file = new File("src/org/richcodes/users.csv");
+        File file = new File(Objects.requireNonNull(getClass().getClassLoader().getResource(
+                "users.csv")).getPath());
         List<User> users = new ArrayList<>();
         try{
             Scanner scanner = new Scanner(file);

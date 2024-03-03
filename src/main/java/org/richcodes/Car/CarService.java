@@ -4,15 +4,12 @@ package org.richcodes.Car;
 public class CarService {
     private final CarDao carDao = new CarDao();
 
-    public Car[] getAllCars(){
-        return carDao.getCars();
-    }
 
-    public Car findUserByName(String regNo){
+    public Car getCarByRegNo(String regNo){
         if (regNo.isBlank()){
             System.out.println("please enter the regNo of the car ");
         }
-        return carDao.getCarByRegNo(regNo);
+        return (carDao.getCarByRegNo(regNo));
     }
 
     public void getAvailableCars(){

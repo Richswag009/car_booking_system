@@ -8,14 +8,12 @@ import org.richcodes.User.UserService;
 import java.util.Scanner;
 
 public class Main {
-    private final BookingDao bookingDao;
     private final UserService userService;
     private final CarService carService;
     private final  BookingService bookingService;
 
 
     public Main(BookingDao bookingDao, UserService userService, CarService carService) {
-        this.bookingDao = bookingDao;
         this.userService = userService;
         this.carService = carService;
         this.bookingService= new BookingService(bookingDao, userService, carService);
