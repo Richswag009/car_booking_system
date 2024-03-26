@@ -9,9 +9,6 @@ import java.util.Objects;
 public class Booking {
     private final List<CarBooking> carBookings;
 
-
-
-
     public Booking() {
         this.carBookings= new ArrayList<>();
     }

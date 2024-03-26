@@ -1,12 +1,26 @@
 package org.richcodes.Car;
 
+import jakarta.persistence.*;
 import org.richcodes.Brand;
 
+@Entity
+@Table(name = "car")
 public class Car {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "car_id")
+    private int id;
+    @Column(name = "driverName")
     private String name;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "brand")
     private Brand brand;
+    @Column(name = "regNo")
     private String regNO;
+    @Column(name = "isBooked")
     private boolean isBooked;
+    @Column(name = "isElectric")
     private boolean isElectric;
 
     public Car(){}
@@ -18,9 +32,12 @@ public class Car {
         this.isBooked= false;
         this.isElectric= isElectric;
     }
+
+
     public  Car(String regNO){
         this.regNO = regNO;
     }
+
 
     public String getName() {
         return name;

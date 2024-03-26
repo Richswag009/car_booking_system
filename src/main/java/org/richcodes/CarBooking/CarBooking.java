@@ -1,28 +1,38 @@
 package org.richcodes.CarBooking;
 
+import jakarta.persistence.*;
 import org.richcodes.Car.Car;
 import org.richcodes.User.User;
+import org.richcodes.Utils.BookingRef;
 
-import java.util.Date;
 import java.util.Objects;
-import java.util.UUID;
 
+@Entity
+@Table(name = "car_bookings")
 public class CarBooking {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
+    @ManyToOne
+    @JoinColumn(name = "car_id")
     private Car car;
-    private UUID bookingRef;
-    private Date dateCreated;
+    @Column(name = "bookingRef")
+    private String bookingRef;
 
+
+    public CarBooking() {
+    }
 
     public CarBooking(User user, Car car){
         this.user=user;
         this.car= car;
-        this.bookingRef= UUID.randomUUID();
-        this.dateCreated= new Date();
+        this.bookingRef= new BookingRef().generateId();
+
 
     }
-
 
     public User getUser() {
         return user;
@@ -40,21 +50,21 @@ public class CarBooking {
         this.car = car;
     }
 
-    public UUID getBookingRef() {
+    public String getBookingRef() {
         return bookingRef;
     }
 
-    public void setBookingRef(UUID bookingRef) {
+    public void setBookingRef(String bookingRef) {
         this.bookingRef = bookingRef;
     }
 
-    public Date getDateCreated() {
-        return dateCreated;
-    }
-
-    public void setDateCreated(Date dateCreated) {
-        this.dateCreated = dateCreated;
-    }
+//    public Date getDateCreated() {
+//        return dateCreated;
+//    }
+//
+//    public void setDateCreated(Date dateCreated) {
+//        this.dateCreated = dateCreated;
+//    }
 
 
 
@@ -64,7 +74,7 @@ public class CarBooking {
                 "user= " + user +
                 ", car= " + car +
                 ", bookingRef= " + bookingRef +
-                ", dateCreated= " + dateCreated +
+//                ", dateCreated= " + dateCreated +
                 '}';
     }
 
@@ -73,12 +83,12 @@ public class CarBooking {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CarBooking that = (CarBooking) o;
-        return Objects.equals(user, that.user) && Objects.equals(car, that.car) && Objects.equals(bookingRef, that.bookingRef) && Objects.equals(dateCreated, that.dateCreated);
+        return Objects.equals(user, that.user) && Objects.equals(car, that.car) && Objects.equals(bookingRef, that.bookingRef) ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(user, car, bookingRef, dateCreated);
+        return Objects.hash(user, car, bookingRef);
     }
 
 }

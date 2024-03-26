@@ -1,5 +1,7 @@
 package org.richcodes.User;
 
+import org.richcodes.exceptions.UserNotFoundException;
+
 import java.beans.JavaBean;
 import java.util.Optional;
 import java.util.UUID;
@@ -9,7 +11,8 @@ public class UserService {
 
     private final UserFileDataAccessService userDAO = new UserFileDataAccessService();
     private final UserArrayDataAccessService userDAO1 = new UserArrayDataAccessService();
-    private final UserFakerDataAccessService userDAO2 = new UserFakerDataAccessService();
+//    private final UserFakerDataAccessService userDAO2 = new UserFakerDataAccessService();
+    private final UserRepo userRepo = new UserRepo();
 
 
 
@@ -29,13 +32,10 @@ public class UserService {
         userDAO.getUsers().forEach(System.out::println);
     }
 
+    public void allUsers(){
+        userRepo.getUsers().forEach(System.out::println);
+    }
 
-//   public User findUserByName(String name){
-//        if (userDAO.getUserByName(name) == null){
-//            System.out.println("user Not found");
-//        }
-//        return (userDAO.getUserByName(name));
-//    }
     public Optional<User> findUserByName(String name) {
         Optional<User> userOptional = Optional.ofNullable(userDAO.getUserByName(name));
         userOptional.ifPresentOrElse(
@@ -45,6 +45,11 @@ public class UserService {
         return userOptional;
     }
 
+    public User findUserByEmail(String email) {
+        Optional<User> userOptional = userRepo.getUserByEmail(email);
+        return userOptional.orElseThrow(() -> new UserNotFoundException("User with email " + email + " not found"));
+    }
+
     public User findUserById(UUID id){
         if (id ==null){
             throw new IllegalArgumentException("name cannot be blank");
@@ -52,11 +57,13 @@ public class UserService {
         return userDAO.getUserById(id);
     }
 
-    public void getFakerusers(){
-       for (var users : userDAO2.getUsers()){
-           System.out.println(users);
-       }
-//                .forEach(System.out.println());
+
+    public  void addUser(String user, String email){
+        if(userRepo.emailExist(email)){
+            System.out.println("email is already taken");
+            return;
+        }
+        userRepo.addUser(user,email);
     }
 
 }

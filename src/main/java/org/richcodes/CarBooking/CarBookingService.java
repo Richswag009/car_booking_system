@@ -1,24 +1,35 @@
 package org.richcodes.CarBooking;
 
-import org.richcodes.Car.Car;
-import org.richcodes.User.User;
-
 public class CarBookingService {
 
-    private CarBookingDao carBookingDao;
+    private final CarBookingDao carBookingDao;
 
     public CarBookingService(){
         this.carBookingDao= new CarBookingDao();
     }
 
-    public  boolean addBookings(User user, Car car){
-//        if(car.isBooked()){
-//            throw new IllegalArgumentException(" car is already booked ");
-//        }
-//
-//
-//
-        return true;
+    public  void addBookings(String email, String carRegNo){
+       carBookingDao.addBooking(email,carRegNo);
+
+    }
+
+    public  void getBookings(){
+        carBookingDao.getAllBookings().forEach(System.out::println);
+    }
+
+    public  void getUserBookingByEmail(String email){
+        if(email.isEmpty() || email.isBlank()){
+            System.out.println("field cannot be empty");
+        }
+        if(carBookingDao.getAUserBookings(email).size() > 1){
+            System.out.println("=========================");
+            carBookingDao.getAUserBookings(email).forEach(System.out::println);
+        }else {
+            System.out.println();
+            System.out.println("=========================");
+            System.out.println("No booking for Selected users");
+        }
+
 
     }
 }

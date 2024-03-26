@@ -7,6 +7,9 @@ import org.richcodes.User.UserService;
 
 import java.util.Optional;
 
+/*
+ no longer using this class
+ */
 public class BookingService {
   private final BookingDao bookingDao;
   private final UserService userService;
@@ -17,18 +20,6 @@ public class BookingService {
       this.userService = userService;
       this.carService = carService;
   }
-
-//  public void addBooking(String userName, String carName){
-//    var user = userService.findUserByName(userName);
-//    var car = carService.getCarByRegNo(carName);
-//    if (user==null || car.getCarIsBooked()){
-//        System.out.println("Cannot be booked can as car is already booked");
-//
-//    }
-//    bookingDao.addBooking(user,car);
-//    System.out.println("successfully booked car " + car.getRegNO());
-//
-//  }
 
     public void addBooking(String userName, String carName) {
         Optional<User> userOptional = userService.findUserByName(userName);
